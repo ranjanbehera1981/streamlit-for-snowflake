@@ -22,10 +22,8 @@ with st.sidebar:
         "Upload a CSV file", type=["csv"], accept_multiple_files=False)
     
     filename = utils.getFullPath("data/employees.csv")
-    #print(filename)
     if uploaded_file is not None:
         filename = StringIO(uploaded_file.getvalue().decode("utf-8"))
-        #print(filename)
 
     df_orig = loadFile(filename)
     cols = list(df_orig.columns)
@@ -49,7 +47,6 @@ with tabFormat:
         ["JSON", "XML", "YAML", "JSON Path", "JSON Tree"])
 
     root = formats.getJson(df)
-    print(root)
     if sel == "JSON":
         jsn = json.dumps(root, indent=2)
         st.code(jsn, language="json", line_numbers=True)
@@ -103,7 +100,5 @@ with tabAnim:
     elif sel == "Network Graph":
         filename = animated.makeNetworkGraph(df)
 
-    print(filename)
     with open(filename, 'r', encoding='utf-8') as f:
         components.html(f.read(), height=2200, width=1000)
-        #components.html(f.read())
